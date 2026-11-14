@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; worker-src 'none'; object-src 'none'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    />
+    <meta
+      name="description"
+      content="Clean messy CSV files entirely in your browser. Detect empty cells, duplicates, type mismatches and inconsistent dates, then download a cleaned file. Nothing is uploaded."
+    />
+    <title>CSV Cleaner</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">Local only</p>
+        <h1>CSV Cleaner</h1>
+        <p class="lede">
+          Open a CSV, review empty cells, duplicate rows, type mismatches and inconsistent date formats, then apply fixes and download a cleaned file. The data never leaves this tab: there is no server, and a strict Content Security Policy sets <code>connect-src 'none'</code> so the page cannot make network requests.
+        </p>
+      </header>
+
+      <section class="panel" aria-labelledby="tool-heading">
+        <h2 id="tool-heading" class="visually-hidden">Load a CSV file</h2>
+
+        <label class="drop" id="drop-zone" for="file-input">
+          <input id="file-input" type="file" accept=".csv,text/csv,text/plain" />
+          <span class="drop-label">Drop a CSV file here, or choose a file</span>
+          <span class="file-meta">Files stay in memory and are limited to 8&nbsp;MiB. Nothing is uploaded.</span>
+        </label>
+
+        <div class="actions">
+          <button type="button" id="load-sample">Load sample</button>
+          <button type="button" id="reset" class="ghost">Reset</button>
+        </div>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="summary" class="panel summary" hidden aria-labelledby="summary-heading"></section>
+      <section id="fixes" class="panel fixes" hidden aria-labelledby="fixes-heading"></section>
+      <section id="preview" class="panel preview" hidden aria-labelledby="preview-heading"></section>
+
+      <section class="limits" aria-labelledby="limits-heading">
+        <h2 id="limits-heading">What this tool does</h2>
+        <ul>
+          <li>Runs entirely in your browser. The CSV is never uploaded or sent over the network.</li>
+          <li>Detects empty cells, leading or trailing whitespace, duplicate rows, values that do not match an inferred column type, and simple inconsistent date formats.</li>
+          <li>Can trim whitespace, remove duplicate rows, drop or fill empty cells, and normalize numbers (thousands separators and decimal marks).</li>
+          <li>Date checks cover common formats such as YYYY-MM-DD, DD/MM/YYYY, DD-MM-YYYY and DD.MM.YYYY. Ambiguous day/month order is not rewritten.</li>
+        </ul>
+      </section>
+
+      <footer class="foot">
+        <p>
+          Open source on
+          <a href="https://github.com/ottonielmorais2008-rgb/csv-cleaner">GitHub</a>.
+          The file you choose is not uploaded.
+        </p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
